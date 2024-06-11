@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 假設 df 是一個包含 OHLC 資料的 DataFrame，並且已經按照日期排序
-# df = pd.read_csv('data.csv') # Example of loading data
+df = pd.read_csv('data_6414.csv') # Example of loading data
 # df should have columns: 'Date', 'Open', 'High', 'Low', 'Close'
 
 def calculate_pivots(df, length):
@@ -29,16 +29,14 @@ def plot_fibonacci_levels(df, length, show_zero_and_half):
 
     # 計算 Fibonacci levels
     fib_0_618 = highest_since_last_pivot_low - (highest_since_last_pivot_low - last_pivot_low) * 0.618
-    #fib_0_65 = highest_since_last_pivot_low - (highest_since_last_pivot_low - last_pivot_low) * 0.65
-    fib_0_5 = highest_since_last_pivot_low - (highest_since_last_pivot_low - last_pivot_low) * 0.5 
+    fib_0_5 = highest_since_last_pivot_low - (highest_since_last_pivot_low - last_pivot_low) * 0.5
     fib_0_382 = highest_since_last_pivot_low - (highest_since_last_pivot_low - last_pivot_low) * 0.382 if show_zero_and_half else None
 
     # Plotting
     plt.figure(figsize=(14, 7))
     plt.plot(df['Date'], df['Close'], label='Close Price')
     
-    plt.axhline(fib_0_618, color='yellow', linestyle='--', label='GP 0.618')
-    #plt.axhline(fib_0_65, color='yellow', linestyle='--', label='GP 0.65')
+    plt.axhline(fib_0_618, color='orange', linestyle='--', label='GP 0.618')
     plt.axhline(fib_0_5, color='yellow', linestyle='--', label='GP 0.5')
     
     if show_zero_and_half:
@@ -56,6 +54,10 @@ def plot_fibonacci_levels(df, length, show_zero_and_half):
     plt.legend()
     plt.title('Auto Fibonacci Golden Pocket')
     plt.show()
+    
+df = plot_fibonacci_levels(df, length=5, show_zero_and_half=True)
+print(df.head())
+
 
 # 示例使用
 # df = pd.read_csv('your_data.csv', parse_dates=['Date'])
